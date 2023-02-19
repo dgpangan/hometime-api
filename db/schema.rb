@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,32 +12,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_18_161038) do
-  create_table "guests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "phone"
-    t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+ActiveRecord::Schema[7.0].define(version: 20_230_218_161_038) do
+  create_table 'guests', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
+    t.string 'first_name'
+    t.string 'last_name'
+    t.string 'phone'
+    t.string 'email'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "reservations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "code"
-    t.date "date_start"
-    t.date "date_end"
-    t.integer "number_adults"
-    t.integer "number_children"
-    t.integer "number_infants"
-    t.float "amount_payout"
-    t.float "amount_security"
-    t.string "currency"
-    t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "guest_id", null: false
-    t.index ["guest_id"], name: "index_reservations_on_guest_id"
+  create_table 'reservations', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
+    t.string 'code'
+    t.date 'date_start'
+    t.date 'date_end'
+    t.integer 'number_adults'
+    t.integer 'number_children'
+    t.integer 'number_infants'
+    t.float 'amount_payout'
+    t.float 'amount_security'
+    t.string 'currency'
+    t.string 'status'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.bigint 'guest_id', null: false
+    t.index ['guest_id'], name: 'index_reservations_on_guest_id'
   end
 
-  add_foreign_key "reservations", "guests"
+  add_foreign_key 'reservations', 'guests'
 end
