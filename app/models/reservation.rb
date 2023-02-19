@@ -13,4 +13,6 @@ class Reservation < ApplicationRecord
             :amount_security,
             :currency,
             :status, presence: true
+
+  validates :code, uniqueness: true
 end
