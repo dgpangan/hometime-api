@@ -5,12 +5,22 @@ class ReservationsController < ApplicationController
 
   def create
     data = parse_data(JSON.parse(request.raw_post).smash)
-    Guest.upsert(data[:guest])
-    guest = Guest.find_by(email: data[:guest][:email])
-    data[:reservation][:guest_id] = guest.id
-    Reservation.upsert(data[:reservation])
-    reservation = Reservation.find_by(code: data[:reservation][:code])
-    render json: { guest:, reservation: }
+
+    guest = create_or_update_guest(data[:guest])
+
+    unless guest.valid?
+      render json: { success: false, errors: guest.errors }
+      return
+    end
+
+    reservation = create_or_update_reservation(data[:reservation], guest.id)
+
+    unless reservation.valid?
+      render json: { success: false, errors: reservation.errors }
+      return
+    end
+
+    render json: { success: true, guest:, reservation: }
   end
 
   private
@@ -29,5 +39,16 @@ class ReservationsController < ApplicationController
 
     reservation[:guest_id] = guest[:id]
     { reservation:, guest: }
+  end
+
+  def create_or_update_guest(data)
+    Guest.upsert(data)
+    Guest.find_by(email: data[:email])
+  end
+
+  def create_or_update_reservation(data, guest_id)
+    data[:guest_id] = guest_id
+    Reservation.upsert(data)
+    Reservation.find_by(code: data[:code])
   end
 end
