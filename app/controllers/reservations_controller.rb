@@ -4,7 +4,7 @@ class ReservationsController < ApplicationController
   LOOKUP_ITEMS = YAML.load_file('lib/lookup.yml').deep_symbolize_keys
 
   def create
-    data = parse_data(JSON.parse(request.raw_post).smash)
+    data = parse_data(JSON.parse(request.body.read).smash)
 
     guest = create_or_update_guest(data[:guest])
 
