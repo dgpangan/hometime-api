@@ -1,8 +1,11 @@
 AllCops:
-  NewCops: enable
   Exclude:
-    - 'bin/*'
-    - 'db/*'
+    - bin/**/*
+    - db/**/*
+    - spec/**/**/**/*
+    - vendor/**/*
+  NewCops: enable
+  SuggestExtensions: false
 
 Style/Documentation:
   Enabled: false
